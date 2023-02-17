@@ -10,18 +10,35 @@
     <title>Salary Calculator</title>
 </head>
 <body>
-    <h1>Salary Calculator</h1>
-    <div id="inputDiv">
-        <input type="text" placeholder="firstName" id="firstNameInput"></input><br>
-        <input type="text" placeholder="lastName" id="lastNameInput"></input><br>
-        <input type="number" placeholder="idNumber" id="idNumberInput"></input><br>
-        <input text="text" placeholder="jobTitle" id="jobTitleInput"></input><br>
-        <input type="number" placeholder="annaulSalary" id="annualSalaryInput"></input><br>
-        <button type="button" id="submitInfoButton">Submit</button><br>
+    <div id="Header">
+        <h1>Salary Calculator</h1>
     </div>
-    <div id="displayDiv">
-        <ul id="displaySalaries">
-        </ul>
+    <div class="contentDiv">
+        <h3>Add Employee Information</h3>
+        <div id="input">
+            <input type="text" placeholder="First Name" id="firstNameInput"></input> <input type="text" placeholder="Last Name" id="lastNameInput"></input> <input type="number" placeholder="Job ID" id="idNumberInput"></input> <input text="text" placeholder="Job Title" id="jobTitleInput"></input> <input type="number" placeholder="Annual Salary" id="annualSalaryInput"></input>
+        </div>
+    </div>
+    <button type="button" id="submitInfoButton">Submit</button>
+    <div class="contentDiv">
+        <table id="salaryTable">
+            <tr id="tableHeaders">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>ID Number</th>
+                <th>Job Title</th>
+                <th>Annual Salary</th>
+                <th>Action</th>
+            </tr>
+            <!-- <tr>
+                <td>Robert</td>
+                <td>Thao</td>
+                <td>08914431</td>
+                <td>Software Engineer</td>
+                <td>$60,000.00</td>
+                <td><button>Edit</button> <button>Delete</button></td>
+            </tr> -->
+        </table>
         <h2 id="salaryTotal">Cost: 0</h2>
     </div>
 </body>

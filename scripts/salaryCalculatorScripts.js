@@ -40,10 +40,13 @@ function displaySalaries() {
     el.empty();
     let salaries = 0;
     for( let i=0; i<employeeSalaries.length; i++) {
-      // appends new total value to monthly salary cost
-      el.append('<li>' + employeeSalaries[i].firstName + ' ' + employeeSalaries[i].lastName + ' ' + employeeSalaries[i].idNumber + ' ' + employeeSalaries[i].jobTitle + ' ' 
-      + employeeSalaries[i].annualSalary + ' ' + '<button class="removeEmployeeData">Delete</button></li>' );
-      salaries += Number( employeeSalaries[i].annualSalary );
+        // appends new total value to monthly salary cost
+        //   el.append('<li>' + employeeSalaries[i].firstName + ' ' + employeeSalaries[i].lastName + ' ' + employeeSalaries[i].idNumber + ' ' + employeeSalaries[i].jobTitle + ' ' 
+        //   + employeeSalaries[i].annualSalary + ' ' + '<button class="removeEmployeeData">Delete</button></li>' );
+        //   salaries += Number( employeeSalaries[i].annualSalary );
+        el.append('<tr><td>'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].idNumber+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
+            +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button class="deleteThisData">Delete</button></li></tr>' );
+            salaries += Number( employeeSalaries[i].annualSalary)
     }
     // appends new total value to monthly salary cost
     el = $( '#salaryTotal' );

@@ -1,29 +1,60 @@
 body {
-    background-color:yellow;
+    background-color:white;
+    margin: 0;
+    height: 100%;
 }
 
-#salaryTotal {
-    background-color: white;
-}
-
-h1 {
-    background-color: lightgreen;
+#Header {
+    background-color: lightgray;
+    font-size: 20px;
     text-align: center;
     font-family: cursive;
-    border-bottom: 1mm solid darkgreen;
+    border-bottom: 1mm solid black;
+    margin: 0;
+    padding: 2px;
+}
+
+h3 {
+    text-align: center;
+}
+
+#input {
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+#submitInfoButton {
+    margin: 10px 70% 10px 50%;
+}
+
+.contentDiv {
+    padding: 5vw;
+    justify-content: center;
+}
+
+#salaryTable {
+    justify-content: space-evenly;
+    width: 100%;
+    border: black 1px solid;
+    text-align: center;
+}
+
+#tableHeaders {
+    border: black 1px solid;
+}
+
+td {
+    border: black 1px solid;
 }
 
 h2 {
     padding: 25px;
     width: 300px;
     height: 50px;
-    border: 2px solid green;
-    text-align: center;
+    text-align: right;
 }
 
-#inputDiv {
-    padding: 20px;
-    width: 150px;
-    height: 200px;
-    border: 1px solid blue;;
+#salaryTotal {
+    background-color: white;
+    margin: 1px;
 }
