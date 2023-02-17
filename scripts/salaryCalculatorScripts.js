@@ -1,5 +1,6 @@
 $( document ).ready( onReady );
 let employeeSalaries = []
+let salaryCost = 0;
 
 // input form that collects
 // employee first name, 
@@ -36,36 +37,30 @@ function newSalary() {
 }
 
 function displaySalaries() {
-    let el = $( '#displaySalaries' );
+    let el = $( '#salaryTable' );
     el.empty();
-    let salaries = 0;
+    el.append('<tr id="tableHeaders"><th>First Name</th><th>Last Name</th><th>ID Number</th><th>Job Title</th><th>Annual Salary</th><th>Action</th></tr>');
     for( let i=0; i<employeeSalaries.length; i++) {
-        // appends new total value to monthly salary cost
-        //   el.append('<li>' + employeeSalaries[i].firstName + ' ' + employeeSalaries[i].lastName + ' ' + employeeSalaries[i].idNumber + ' ' + employeeSalaries[i].jobTitle + ' ' 
-        //   + employeeSalaries[i].annualSalary + ' ' + '<button class="removeEmployeeData">Delete</button></li>' );
-        //   salaries += Number( employeeSalaries[i].annualSalary );
+        // appends new employee information to the table
         el.append('<tr><td>'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].idNumber+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
             +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button class="deleteThisData">Delete</button></li></tr>' );
-            salaries += Number( employeeSalaries[i].annualSalary)
-    }
-    // appends new total value to monthly salary cost
-    el = $( '#salaryTotal' );
+    };
+    el = $('#salaryTotal');
     el.empty();
-    el.append( 'Cost: ' + salaries );
-    timeToBudget;
+    el.append('Cost: $'+salaryCost);
 }
 
 // If the total monthly cost exceeds $20,000, 
 // add a red background color to the total monthly cost.
 
-function timeToBudget() {
-    const limit = 20000;
-    if ( salaries > limit ) {
-        document.getElementById=("salaryTotal").style.backgroundColor = 'red';
-    } else {
-        document.getElementById=("salaryTotal").style.backgroundColor = 'initial';
-    }
-}
+// function timeToBudget() {
+//     const limit = 20000;
+//     if ( salaryCost > limit ) {
+//         document.getElementById=("salaryTotal").style.backgroundColor = 'red';
+//     } else {
+//         document.getElementById=("salaryTotal").style.backgroundColor = 'initial';
+//     }
+// }
 
 // Create a delete button that removes an employee from the DOM. 
 // For Base mode, it does **not** need to remove that Employee's 
