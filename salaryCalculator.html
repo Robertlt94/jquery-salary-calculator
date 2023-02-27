@@ -15,11 +15,12 @@
     </div>
     <div class="contentDiv">
         <h3>Add Employee Information</h3>
-        <div id="input">
-            <input type="text" placeholder="First Name" id="firstNameInput"></input> <input type="text" placeholder="Last Name" id="lastNameInput"></input> <input type="number" placeholder="Job ID" id="idNumberInput"></input> <input text="text" placeholder="Job Title" id="jobTitleInput"></input> <input type="number" placeholder="Annual Salary" id="annualSalaryInput"></input>
-        </div>
+        <form id="input">
+            <input type="text" placeholder="First Name" label="First Name" id="firstNameInput" required></input> <input type="text" placeholder="Last Name" id="lastNameInput" required></input> <input type="number" placeholder="Job ID" id="idNumberInput"></input> <input text="text" placeholder="Job Title" id="jobTitleInput" required></input> <input type="number" placeholder="Annual Salary" id="annualSalaryInput" required></input>
+            <br>
+            <button type="submit" id="submitInfoButton">Submit</button>
+        </form>
     </div>
-    <button type="button" id="submitInfoButton">Submit</button>
     <div class="contentDiv">
         <table id="salaryTable">
             <tr id="tableHeaders">

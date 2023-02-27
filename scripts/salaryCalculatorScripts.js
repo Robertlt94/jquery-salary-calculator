@@ -1,6 +1,5 @@
 $( document ).ready( onReady );
 let employeeSalaries = [];
-let companyExpense = 0;
 
 // input form that collects
 // employee first name, 
@@ -41,13 +40,16 @@ function displaySalaries() {
     el.empty();
     el.append('<tr id="tableHeaders"><th>First Name</th><th>Last Name</th><th>ID Number</th><th>Job Title</th><th>Annual Salary</th><th>Action</th></tr>');
     for( let i=0; i<employeeSalaries.length; i++) {
-        companyExpense += eval(employeeSalaries[i].annualSalary);
         // appends new employee information to the table
         el.append('<tr><td>'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].idNumber+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
             +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button class="deleteThisData">Delete</button></li></tr>' );
     };
+    let companyExpense = 0;
     el = $('#salaryTotal');
     el.empty();
+    for(let i=0; i<employeeSalaries.length; i++){
+        companyExpense += eval(employeeSalaries[i].annualSalary);
+    }
     el.append('Cost: $'+companyExpense);
 
 }
