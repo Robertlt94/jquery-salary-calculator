@@ -14,17 +14,33 @@ let employeeSalaries = [];
 // and clear the input fields. 
 
 function onReady() {
-    $( '#submitInfoButton' ).on( 'click', newSalary);
+    $( '#submitInfoButton' ).on( 'click', verification );
     $( '#displaySalaries' ).on( 'click', '.removeEmployeeData', removeInfo );
  }
 
 // Using the stored information, calculate monthly costs 
 // and append this to the to DOM. 
 
+function verification(){
+    if( $( '#firstNameInput' ).val() === '' ){
+        return alert("Employee's first name is blank");
+    }else if( $( '#firstNameInput' ).val() === '' ){
+        return alert("Employee's last name is blank");
+    }else if( $( '#idNumberInput' ).val() === '' ){
+        return alert("Employee's id number is blank");
+    }else if( $( '#jobTitleInput' ).val() === '' ){
+        return alert("Employee's job title is blank");
+    }else if( $( '#annualSalaryInput' ).val() === '' ){
+        return alert("Employee's salary is blank");
+    }else{
+        newSalary();
+    }
+}
+
 function newSalary() {
     let addEmployeeSalary = {};
     addEmployeeSalary.firstName = $( '#firstNameInput' ).val();
-    addEmployeeSalary.lastName = $( '#lastNameInput' ).val();
+    addEmployeeSalary.lastName = $( '#firstNameInput' ).val();
     addEmployeeSalary.idNumber = $( '#idNumberInput' ).val();
     addEmployeeSalary.jobTitle = $( '#jobTitleInput' ).val();
     addEmployeeSalary.annualSalary = $( '#annualSalaryInput' ).val();
@@ -36,20 +52,18 @@ function newSalary() {
 }
 
 function displaySalaries() {
+    let companyExpense = 0;
     let el = $( '#salaryTable' );
     el.empty();
     el.append('<tr id="tableHeaders"><th>First Name</th><th>Last Name</th><th>ID Number</th><th>Job Title</th><th>Annual Salary</th><th>Action</th></tr>');
     for( let i=0; i<employeeSalaries.length; i++) {
+        companyExpense += eval(employeeSalaries[i].annualSalary)
         // appends new employee information to the table
         el.append('<tr><td>'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].idNumber+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
             +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button class="deleteThisData">Delete</button></li></tr>' );
     };
-    let companyExpense = 0;
     el = $('#salaryTotal');
     el.empty();
-    for(let i=0; i<employeeSalaries.length; i++){
-        companyExpense += eval(employeeSalaries[i].annualSalary);
-    }
     el.append('Cost: $'+companyExpense);
 
 }

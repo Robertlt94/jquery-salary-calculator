@@ -24,7 +24,8 @@ h3 {
 }
 
 #submitInfoButton {
-    margin: 10px 70% 10px 50%;
+    margin: 10px;
+    position: center;
 }
 
 .contentDiv {
@@ -55,6 +56,6 @@ h2 {
 }
 
 #salaryTotal {
-    background-color: white;
     margin: 1px;
+    text-align: center;
 }
