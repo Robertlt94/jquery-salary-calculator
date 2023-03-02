@@ -1,9 +1,5 @@
-# Project Name
-
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+# jQuery Salary Calculator
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
-
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+A very straight forward salary calculator that works off the employee information that the user submits. To do so, it utilizes HTML and CSS on the front end, with jQuery and JavaScript working behind the scenes to manipulate the DOM into displaying, editing, and removing submitted information.

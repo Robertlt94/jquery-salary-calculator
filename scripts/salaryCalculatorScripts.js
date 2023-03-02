@@ -1,5 +1,6 @@
 $( document ).ready( onReady );
 let employeeSalaries = [];
+let employeeCount = 0;
 
 // input form that collects
 // employee first name, 
@@ -15,8 +16,7 @@ let employeeSalaries = [];
 
 function onReady() {
     $( '#submitInfoButton' ).on( 'click', verification );
-    $( '#displaySalaries' ).on( 'click', '.removeEmployeeData', removeInfo );
- }
+}
 
 // Using the stored information, calculate monthly costs 
 // and append this to the to DOM. 
@@ -39,6 +39,7 @@ function verification(){
 
 function newSalary() {
     let addEmployeeSalary = {};
+    addEmployeeSalary.count = employeeCount;
     addEmployeeSalary.firstName = $( '#firstNameInput' ).val();
     addEmployeeSalary.lastName = $( '#firstNameInput' ).val();
     addEmployeeSalary.idNumber = $( '#idNumberInput' ).val();
@@ -49,6 +50,7 @@ function newSalary() {
     console.log( employeeSalaries )
     displaySalaries();
     emptyInputs();
+    employeeCount++;
 }
 
 function displaySalaries() {
@@ -60,11 +62,11 @@ function displaySalaries() {
         companyExpense += eval(employeeSalaries[i].annualSalary)
         // appends new employee information to the table
         el.append('<tr><td>'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].idNumber+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
-            +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button class="deleteThisData">Delete</button></li></tr>' );
+            +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button id="deleteThisData" onClick="$(this).parent().parent().remove()">Delete</button></td></tr>' );
     };
     el = $('#salaryTotal');
     el.empty();
-    el.append('Cost: $'+companyExpense);
+    el.append('Total Salary Cost: $'+companyExpense);
 
 }
 
@@ -85,7 +87,11 @@ function displaySalaries() {
 // salary from the reported total.
 
 function removeInfo() {
-    $( this ).parent().fadeOut( 1000 );
+    // console.log('in removeInfo');
+    // $(this).parent("tr").remove()
+    $("tr td .cancel").live("click", function(){
+        $(this).parent("tr:first").remove()
+      })
 }
 
 // resets input boxes

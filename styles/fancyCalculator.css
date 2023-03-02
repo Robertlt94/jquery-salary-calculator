@@ -36,26 +36,20 @@ h3 {
 #salaryTable {
     justify-content: space-evenly;
     width: 100%;
-    border: black 1px solid;
     text-align: center;
-}
-
-#tableHeaders {
-    border: black 1px solid;
 }
 
 td {
     border: black 1px solid;
 }
 
-h2 {
-    padding: 25px;
-    width: 300px;
-    height: 50px;
-    text-align: right;
+#salaryTotal {
+    margin-top: 10px;
+    text-align: center;
 }
 
-#salaryTotal {
-    margin: 1px;
-    text-align: center;
+#deleteThisData {
+    background-color: red;
+    color: black;
+    outline: red;
 }
