@@ -39,12 +39,16 @@ h3 {
     text-align: center;
 }
 
-td {
-    border: black 1px solid;
+tr {
+    border: black solid;
+}
+
+th {
+    border-bottom: black 2px solid;
 }
 
 #salaryTotal {
-    margin-top: 10px;
+    margin-top: 20px;
     text-align: center;
 }
 

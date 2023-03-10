@@ -1,26 +1,16 @@
 $( document ).ready( onReady );
+
+// setting up some globals
 let employeeSalaries = [];
-let employeeCount = 0;
+let countId = 0;
 
-// input form that collects
-// employee first name, 
-// last name, 
-// ID number, 
-// job title, 
-// annual salary_.
-
-// A 'Submit' button should collect the form information, 
-// store the information to calculate monthly costs,
-// append information to the DOM 
-// and clear the input fields. 
-
+// on document ready, run these functions when this action is taken here
 function onReady() {
     $( '#submitInfoButton' ).on( 'click', verification );
+    $( '#salaryTable' ).on( 'click', '.deleteButton', removeEmployee );
 }
 
-// Using the stored information, calculate monthly costs 
-// and append this to the to DOM. 
-
+// reinforces the required form textfields before user can submit information
 function verification(){
     if( $( '#firstNameInput' ).val() === '' ){
         return alert("Employee's first name is blank");
@@ -37,12 +27,13 @@ function verification(){
     }
 }
 
+// collects submitted data as a object, pushes object into a new array, before the DOM is maniuplated to display the values
 function newSalary() {
     let addEmployeeSalary = {};
-    addEmployeeSalary.count = employeeCount;
+    addEmployeeSalary.id = countId;
     addEmployeeSalary.firstName = $( '#firstNameInput' ).val();
     addEmployeeSalary.lastName = $( '#firstNameInput' ).val();
-    addEmployeeSalary.idNumber = $( '#idNumberInput' ).val();
+    addEmployeeSalary.jobId = $( '#idNumberInput' ).val();
     addEmployeeSalary.jobTitle = $( '#jobTitleInput' ).val();
     addEmployeeSalary.annualSalary = $( '#annualSalaryInput' ).val();
     console.log( addEmployeeSalary );
@@ -50,19 +41,22 @@ function newSalary() {
     console.log( employeeSalaries )
     displaySalaries();
     emptyInputs();
-    employeeCount++;
+    countId++
 }
 
+// resets the company expense total before looping through the array of employees 
+// that are represented as objects, displaying their values on the DOM, and 
+// calculating the sum of all employee salaries within the previously mentioned array
 function displaySalaries() {
     let companyExpense = 0;
     let el = $( '#salaryTable' );
     el.empty();
-    el.append('<tr id="tableHeaders"><th>First Name</th><th>Last Name</th><th>ID Number</th><th>Job Title</th><th>Annual Salary</th><th>Action</th></tr>');
+    el.append('<tr id="tableHeaders"><th>#</th><th>First Name</th><th>Last Name</th><th>Job ID</th><th>Job Title</th><th>Annual Salary</th><th>Action</th></tr>');
     for( let i=0; i<employeeSalaries.length; i++) {
         companyExpense += eval(employeeSalaries[i].annualSalary)
         // appends new employee information to the table
-        el.append('<tr><td>'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].idNumber+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
-            +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button id="deleteThisData" onClick="$(this).parent().parent().remove()">Delete</button></td></tr>' );
+        el.append('<tr><td>'+employeeSalaries[i].id+'</td><td id="firstName">'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].jobId+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
+            +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button class="deleteButton" data-id="${i}">Delete</button></td></tr>' );
     };
     el = $('#salaryTotal');
     el.empty();
@@ -86,12 +80,21 @@ function displaySalaries() {
 // For Base mode, it does **not** need to remove that Employee's 
 // salary from the reported total.
 
-function removeInfo() {
-    // console.log('in removeInfo');
-    // $(this).parent("tr").remove()
-    $("tr td .cancel").live("click", function(){
-        $(this).parent("tr:first").remove()
-      })
+// onClick="salaryAdjustment(),$(this).parent().parent().remove()"
+
+function removeEmployee(){
+    console.log('in removeEmployee');
+    // $(this).parent().parent(); removes table row, but does not adjust total cost value
+    let currentData = $(this).closest('tr');
+    // currentData holds the values for the elements and values within the closest Table Row where the delete button was clicked
+    let dataId = currentData.find('td:eq(0)').text();
+    // dataId holds the value for the first set of table data, with the next set being 'td:eq(1)' and so forth
+    let index = employeeSalaries.findIndex(i => i.id == dataId);
+    // index finds the index of the selected table data within the employeeSalaries array so that it can be removed
+    // console.log(dataId);
+    // console.log(index);
+    employeeSalaries.splice(index, 1);
+    displaySalaries();
 }
 
 // resets input boxes
