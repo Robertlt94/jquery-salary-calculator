@@ -3,11 +3,29 @@ $( document ).ready( onReady );
 // setting up some globals
 let employeeSalaries = [];
 let countId = 0;
+let companyBudget = 0;
+let companyExpense = 0;
 
 // on document ready, run these functions when this action is taken here
 function onReady() {
     $( '#submitInfoButton' ).on( 'click', verification );
     $( '#salaryTable' ).on( 'click', '.deleteButton', removeEmployee );
+    $( '#salaryTable' ).on('click', '.openEditButton', openEdit );
+    $( '#setBudgetButton' ).on('click', setBudget );
+}
+
+// sets the company's budget
+function setBudget(){
+    companyBudget = prompt("What is your company's budget?");
+    if( /^[0-9.,]+$/.test(companyBudget)){
+    let el = $('#companyBudget');
+    el.empty();
+    el.append('Budget: $'+companyBudget);
+    budgetTracker();
+    }else{
+        alert('Please use only numbers');
+        companyBudget = prompt("What is your company's budget?");
+    }
 }
 
 // reinforces the required form textfields before user can submit information
@@ -44,44 +62,50 @@ function newSalary() {
     countId++
 }
 
+// resets input boxes
+function emptyInputs() {
+    $( '#firstNameInput' ).val( '' );
+    $( '#lastNameInput' ).val( '' );
+    $( '#idNumberInput' ).val( '' );
+    $( '#jobTitleInput' ).val( '' );
+    $( '#annualSalaryInput' ).val( '' );
+}
+
 // resets the company expense total before looping through the array of employees 
 // that are represented as objects, displaying their values on the DOM, and 
 // calculating the sum of all employee salaries within the previously mentioned array
 function displaySalaries() {
-    let companyExpense = 0;
+    companyExpense = 0;
     let el = $( '#salaryTable' );
     el.empty();
     el.append('<tr id="tableHeaders"><th>#</th><th>First Name</th><th>Last Name</th><th>Job ID</th><th>Job Title</th><th>Annual Salary</th><th>Action</th></tr>');
     for( let i=0; i<employeeSalaries.length; i++) {
         companyExpense += eval(employeeSalaries[i].annualSalary)
         // appends new employee information to the table
-        el.append('<tr><td>'+employeeSalaries[i].id+'</td><td id="firstName">'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].jobId+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
-            +employeeSalaries[i].annualSalary+'</td><td><button>Edit</button> <button class="deleteButton" data-id="${i}">Delete</button></td></tr>' );
+        el.append('<tr><td>'+employeeSalaries[i].id+'</td><td>'+employeeSalaries[i].firstName +'</td><td>'+employeeSalaries[i].lastName+'</td><td>'+employeeSalaries[i].jobId+'</td><td>'+employeeSalaries[i].jobTitle+'</td><td>'
+            +employeeSalaries[i].annualSalary+'</td><td><button class="openEditButton">Edit</button> <button class="deleteButton">Delete</button></td></tr>' );
     };
     el = $('#salaryTotal');
     el.empty();
-    el.append('Total Salary Cost: $'+companyExpense);
-
+    el.append(companyExpense);
+    budgetTracker();
 }
 
-// If the total monthly cost exceeds $20,000, 
-// add a red background color to the total monthly cost.
+// Changes the CSS of the total according to the company budget.
+function budgetTracker() {
+    console.log('in budgetTracker');
+    if(companyBudget === 0){
+        return;
+    }else{
+        if ( companyExpense > companyBudget ) {
+            document.getElementById("salaryTotal").style.color = 'red';
+        } else {
+            document.getElementById("salaryTotal").style.color = 'initial';
+        }
+    }
+}
 
-// function timeToBudget() {
-//     const limit = 20000;
-//     if ( salaryCost > limit ) {
-//         document.getElementById=("salaryTotal").style.backgroundColor = 'red';
-//     } else {
-//         document.getElementById=("salaryTotal").style.backgroundColor = 'initial';
-//     }
-// }
-
-// Create a delete button that removes an employee from the DOM. 
-// For Base mode, it does **not** need to remove that Employee's 
-// salary from the reported total.
-
-// onClick="salaryAdjustment(),$(this).parent().parent().remove()"
-
+// removes data from array and from the DOM
 function removeEmployee(){
     console.log('in removeEmployee');
     // $(this).parent().parent(); removes table row, but does not adjust total cost value
@@ -97,11 +121,13 @@ function removeEmployee(){
     displaySalaries();
 }
 
-// resets input boxes
-function emptyInputs() {
-    $( '#firstNameInput' ).val( '' );
-    $( '#lastNameInput' ).val( '' );
-    $( '#idNumberInput' ).val( '' );
-    $( '#jobTitleInput' ).val( '' );
-    $( '#annualSalaryInput' ).val( '' );
+// allows the user to edit information that was previously submitted according to their selection from the table
+function openEdit(){
+    console.log('in edit information');
+    let editData = $(this).closest('tr');
+    let editFirstName = editData.find('td:eq(1)').text();
+    let editSecondName = editData.find('td:eq(2)').text();
+    let editJobId = editData.find('td:eq(3)').text();
+    let editJobTitle = editData.find('td:eq(4)').text();
+    let editAnnualSalary = editData.find('td:eq(5)').text();
 }

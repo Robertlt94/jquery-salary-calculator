@@ -47,13 +47,21 @@ th {
     border-bottom: black 2px solid;
 }
 
-#salaryTotal {
+.showTotal {
     margin-top: 20px;
     text-align: center;
+    vertical-align: middle;
 }
 
 #deleteThisData {
     background-color: red;
     color: black;
     outline: red;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
 }
