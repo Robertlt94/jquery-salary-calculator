@@ -13,30 +13,35 @@
     <div id="Header">
         <h1>Salary Calculator</h1>
     </div>
-    <div class="contentDiv">
-        <h3>Add Employee Information</h3>
-        <form id="input">
-            <input type="text" placeholder="First Name" label="First Name" id="firstNameInput" required></input> <input type="text" placeholder="Last Name" id="lastNameInput" required></input> <input type="number" placeholder="Job ID" id="idNumberInput"></input> <input text="text" placeholder="Job Title" id="jobTitleInput" required></input> <input type="number" placeholder="Annual Salary" id="annualSalaryInput" required></input>
-            <br>
-            <button id="submitInfoButton">Submit</button>
-        </form>
+    <div id="background">
+        <div class="contentDiv">
+            <h3>Add Employee Information</h3>
+            <form id="input">
+                <label name="firstName">First Name: </label><input type="text" placeholder="Robert" id="firstNameInput" required></input> <label name="lastName">Last Name: </label><input type="text" placeholder="Thao" id="lastNameInput" required></input> <label name="jobId">Job Id: </label><input type="number" placeholder="000804336" id="jobIdInput" required></input> <label name="jobTitle">Job Title: </label><input text="text" placeholder="Junior Software Engineer" id="jobTitleInput" required></input> <label name="salary">Salary: </label><input type="number" placeholder="1000000" id="annualSalaryInput" required></input>
+                <br>
+                <input type="submit" id="submitInfoButton">
+            </form>
+        </div>
+        <div class="contentDiv" >
+            <table id="salaryTable">
+                <tr id="tableHeaders">
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Job ID</th>
+                    <th>Job Title</th>
+                    <th>Annual Salary</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </div>
+        <div class="contentDiv">
+            <h2 class="showTotal">Total Salary Cost:</h2>
+            <h2 class="showTotal" id="salaryTotal"></h2>
+        </div>
     </div>
-    <div class="contentDiv">
-        <table id="salaryTable">
-            <tr id="tableHeaders">
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Job ID</th>
-                <th>Job Title</th>
-                <th>Annual Salary</th>
-                <th>Action</th>
-            </tr>
-        </table>
-    </div>
-    <div class=""contentDiv">
-        <h2 class="showTotal">Total Salary Cost:</h2>
-        <h2 class="showTotal" id="salaryTotal"></h2>
+    <div class="popup" id="editPopup">
+        <button id='cancelUpdateButton'>Cancel</button>
     </div>
 </body>
 <footer>

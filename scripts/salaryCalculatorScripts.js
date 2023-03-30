@@ -10,7 +10,7 @@ let companyExpense = 0;
 function onReady() {
     $( '#submitInfoButton' ).on( 'click', verification );
     $( '#salaryTable' ).on( 'click', '.deleteButton', removeEmployee );
-    $( '#salaryTable' ).on('click', '.openEditButton', openEdit );
+    $( '#salaryTable' ).on('click', '.openEditButton', openEditPopup );
     $( '#setBudgetButton' ).on('click', setBudget );
 }
 
@@ -34,7 +34,7 @@ function verification(){
         return alert("Employee's first name is blank");
     }else if( $( '#firstNameInput' ).val() === '' ){
         return alert("Employee's last name is blank");
-    }else if( $( '#idNumberInput' ).val() === '' ){
+    }else if( $( '#jobIdInput' ).val() === '' ){
         return alert("Employee's id number is blank");
     }else if( $( '#jobTitleInput' ).val() === '' ){
         return alert("Employee's job title is blank");
@@ -51,7 +51,7 @@ function newSalary() {
     addEmployeeSalary.id = countId;
     addEmployeeSalary.firstName = $( '#firstNameInput' ).val();
     addEmployeeSalary.lastName = $( '#firstNameInput' ).val();
-    addEmployeeSalary.jobId = $( '#idNumberInput' ).val();
+    addEmployeeSalary.jobId = $( '#jobIdInput' ).val();
     addEmployeeSalary.jobTitle = $( '#jobTitleInput' ).val();
     addEmployeeSalary.annualSalary = $( '#annualSalaryInput' ).val();
     console.log( addEmployeeSalary );
@@ -66,7 +66,7 @@ function newSalary() {
 function emptyInputs() {
     $( '#firstNameInput' ).val( '' );
     $( '#lastNameInput' ).val( '' );
-    $( '#idNumberInput' ).val( '' );
+    $( '#jobIdInput' ).val( '' );
     $( '#jobTitleInput' ).val( '' );
     $( '#annualSalaryInput' ).val( '' );
 }
@@ -122,12 +122,32 @@ function removeEmployee(){
 }
 
 // allows the user to edit information that was previously submitted according to their selection from the table
-function openEdit(){
+function openEditPopup(){
     console.log('in edit information');
     let editData = $(this).closest('tr');
-    let editFirstName = editData.find('td:eq(1)').text();
-    let editSecondName = editData.find('td:eq(2)').text();
-    let editJobId = editData.find('td:eq(3)').text();
-    let editJobTitle = editData.find('td:eq(4)').text();
-    let editAnnualSalary = editData.find('td:eq(5)').text();
+    let dataId = editData.find('td:eq(0)').text();
+    let index = employeeSalaries.findIndex(i => i.id == dataId);
+    let el = $('#editPopup');
+    el.empty();
+    let editFirstName = employeeSalaries[index].firstName;
+    let editLastName = employeeSalaries[index].lastName;
+    let editJobId = employeeSalaries[index].jobId;
+    let editJobTitle = employeeSalaries[index].jobTitle;
+    let editAnnualSalary = employeeSalaries[index].annualSalary;
+    el.append("<h2>Edit</h2><table id='editTable'><tr><td><p>First Name: </p><input type='text' value="+editFirstName+" id='editFirstName' required /></td><td><p>Last Name: </p><input type='text' value="+editLastName+" id='editLastName' required /></td><td><p>Job ID: </p><input type='number' value="+editJobId+" id='editJobId' required /></td><td><p>Job Title: </p><input text='text' value="+editJobTitle+" id='editJobTitle' required /></td><td><p>Annual Salary: </p><input type='number' value="+editAnnualSalary+" id='editAnnualSalary' required /></td></table> <br> <button onClick={closePopupEditor()}>Cancel</button><button id='submitEditsButton' onClick={submitEdits("+index+")}>Update</button>");
+    document.getElementById("editPopup").style.display="block";
+}
+
+function closePopupEditor(){
+    document.getElementById('editPopup').style.display='none';
+}
+
+function submitEdits(index){
+    employeeSalaries[index].firstName = $( '#editFirstName' ).val();
+    employeeSalaries[index].lastName = $( '#editLastName' ).val();
+    employeeSalaries[index].jobId = $( '#editJobId' ).val();
+    employeeSalaries[index].jobTitle = $( '#editJobTitle' ).val();
+    employeeSalaries[index].annualSalary = $( '#editAnnualSalary' ).val();
+    closePopupEditor();
+    displaySalaries();
 }
